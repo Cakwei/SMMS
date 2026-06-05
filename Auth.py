@@ -1,6 +1,7 @@
 import json
+from lib.types import TAdmins, TReturn
 
-def login():
+def login() -> TReturn:
     # Authentication for all users
     username = input("Enter your account name: ")
     password = input("Enter your password: ")
@@ -15,22 +16,27 @@ def login():
     # ================
     # Variable section
     # ================
-    data: None | dict = None 
+    data: list[TAdmins] = []
     # ================
 
     # Opens the user DB and load data as dict 
-    with open('users.json', 'r') as file:
+    with open('admins.json', 'r') as file:
         data = json.load(file)
 
-    # For now, use linear search via userId
 
-
+    if len(data) >= 1:
+        # For now, use linear search via username
+        for i in range(len(data)):
+            if data[i]["username"] == username and data[i]["password"] == password:
+                return {"success": True, "message": 'Logged in'}
+          
+          
     return {
-        'username': username,
-        'password': password
+        "success": False,
+        "message": "[!] Account with this username is not found!"
     }
 
 def register():
     pass
 
-print(login())
+print(login()['success'])
