@@ -45,19 +45,20 @@ def startUpWindow():
                  while True:
                     print(programName)
                     # Calls login function from src/Auth.py
-                    response = login()["data"]
-
+                    response = login()
+                    
                     # Check if sessionData dict is empty
-                    if not response:
+                    if not response["data"]:
                         # "Clears" terminal before printing MOTD & options
                         clearTerminal()
-                        print("[!] Username/password you have entered is incorrect!")
+                        # print("[!] Username/password you have entered is incorrect!")
+                        print(response["message"])
                         sleep(1.5)
                         clearTerminal()
                         continue
 
                     # If loggedInWindow function returns False, breaks the loop (Goes back to very first loop of startUpWindow)
-                    if not loggedInWindow(response):
+                    if not loggedInWindow(response["data"]):
                         break
             case "1000": 
                 exit()
