@@ -1,13 +1,13 @@
 [
   {
     "userId": "1",
-    "username": "Cakwei",
+    "username": "CakweiLecturer",
     "password": "123",
     "role": "Admin"
   },
   {
     "userId": "2",
-    "username": "Cakwei2",
+    "username": "CakweiLecturer2",
     "password": "123",
     "role": "Admin"
   }

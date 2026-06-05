@@ -16,8 +16,8 @@ from libs.types import TReturn, TAdmins
 # Auth Functions
 def login() -> TReturn:
     # Authentication for all users
-    username = input("Enter your account name: ")
-    password = input("Enter your password: ")
+    username = input("[LOGIN] Enter your account name: ")
+    password = input("[LOGIN] Enter your password: ")
 
     # Check if both input is empty
     if not username or not password:
@@ -60,5 +60,21 @@ def login() -> TReturn:
     }
 
 def register():
-    pass
+    username = input("[REGISTER] Enter an account name: ")
+    password = input("[REGISTER] Enter your password: ")
+
+    # Check if both input is empty
+    if not username or not password:
+        return {
+            "success": False,
+            "message": "[!] One or more inputs is/are empty",
+            "data": {}
+        }
+
+    # Opens the user DB and load data as dict 
+    with open('./db/students.json', 'r') as file:
+        data: list[TAdmins] = json.load(file)
+        print(type(data))
+        exit()
+
 
