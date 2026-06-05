@@ -1,14 +1,9 @@
 [
   {
     "userId": "1",
-    "username": "CakweiLecturer",
+    "username": "Lecturer1",
+    "name": "John Stan",
     "password": "123",
-    "role": "Admin"
-  },
-  {
-    "userId": "2",
-    "username": "CakweiLecturer2",
-    "password": "123",
-    "role": "Admin"
+    "role": "Lecturer"
   }
 ]

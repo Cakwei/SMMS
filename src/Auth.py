@@ -11,7 +11,7 @@ root_dir = current_dir.parent
 # Add the root directory to Python's search path
 sys.path.append(str(root_dir))
 
-from libs.types import TReturn, TAdmins
+from libs.types import TReturn, TUser
 # ==========================
 
 # Auth Functions
@@ -40,30 +40,57 @@ def login() -> TReturn:
     # ================
     # Variable section
     # ================
-    data: list[TAdmins] = []
+    # data: list[TAdmins] = []
     # ================
 
     match role.lower():
         case "1" | "admin":  
             # Opens the admin DB and load data as dict
             response: TReturn = getAdminCredentials(username, password)
-
-            if response["success"]:       
-               
+            print(response["data"]["username"], 'peirgjearpgokfijkgaeornlfnkalgeosrkjlgaern')
+            if response["success"]:        
                 return {
                     "success": True,
                     "message": "[!] Logged in succesfully",
                     "data": {
-                        "username": username,
-                        "role": role
+                        "username": response["data"]["username"], 
+                        "name": response["data"]["name"],
+                        "role": response["data"]["role"]
                     }
                 }
             
         case "student" | "2":
-            pass
+            # Opens the student DB and load data as dict
+            response: TReturn = getStudentCredentials(username, password)
+
+            if response["success"]:        
+                return {
+                    "success": True,
+                    "message": "[!] Logged in succesfully",
+                    "data": {
+                        "username": response["data"]["username"],     
+                        "name": response["data"]["name"],
+                        "role": response["data"]["role"]
+                  
+                    }
+                }
+            
 
         case "lecturer" | "3":
-            pass
+            # Opens the admin DB and load data as dict
+            response: TReturn = getLecturerCredentials(username, password)
+
+            if response["success"]:        
+                return {
+                    "success": True,
+                    "message": "[!] Logged in succesfully",
+                    "data": {
+                        "username": response["data"]["username"], 
+                        "name": response["data"]["name"],
+                        "role": response["data"]["role"]
+                    }
+                }
+            
 
     return {
         "success": False,
@@ -85,24 +112,25 @@ def register():
 
     # Opens the user DB and load data as dict 
     with open('./db/students.json', 'r') as file:
-        data: list[TAdmins] = json.load(file)
+        data: list[TUser] = json.load(file)
         print(type(data))
         exit()
 
-
+# For now redundant function, may need to add additional stuff later on
 def getAdminCredentials(username: str, password: str) -> TReturn:
     with open('./db/admins.json', 'r') as file:
-        data = json.load(file)
+        data: list[TUser] = json.load(file)
         if len(data) >= 1:
             # For now, use linear search via username
             for i in range(len(data)):
-                currentDict = data[i]
+                currentDict: TUser = data[i]
                 if currentDict["username"].lower() == username.lower() and currentDict["password"] == password:
                     return {
                         "success": True, 
                         "message": 'Logged in',
                         "data": {
                             "username": data[i]["username"],
+                            "name": data[i]["name"], 
                             "role": data[i]["role"]
                         }
                     }
@@ -110,5 +138,52 @@ def getAdminCredentials(username: str, password: str) -> TReturn:
         "success": False,
         "message": "[!] Cannot find account or username/password is invalid!",
         "data": {}
-    }
+        }
+
+
+def getStudentCredentials(username: str, password: str) -> TReturn:
+    with open('./db/students.json', 'r') as file:
+        data: list[TUser] = json.load(file)
+        if len(data) >= 1:
+            # For now, use linear search via username
+            for i in range(len(data)):
+                currentDict: TUser = data[i]
+                if currentDict["username"].lower() == username.lower() and currentDict["password"] == password:
+                    return {
+                        "success": True, 
+                        "message": 'Logged in',
+                        "data": {
+                            "username": data[i]["username"],
+                            "name": data[i]["name"], 
+                            "role": data[i]["role"]
+                        }
+                    }
+        return {
+        "success": False,
+        "message": "[!] Cannot find account or username/password is invalid!",
+        "data": {}
+        }
+
+def getLecturerCredentials(username: str, password: str) -> TReturn:
+    with open('./db/lecturers.json', 'r') as file:
+        data: list[TUser] = json.load(file)
+        if len(data) >= 1:
+            # For now, use linear search via username
+            for i in range(len(data)):
+                currentDict: TUser = data[i]
+                if currentDict["username"].lower() == username.lower() and currentDict["password"] == password:
+                    return {
+                        "success": True, 
+                        "message": 'Logged in',
+                        "data": {
+                            "username": data[i]["username"],
+                            "name": data[i]["name"], 
+                            "role": data[i]["role"]
+                        }
+                    }
+        return {
+        "success": False,
+        "message": "[!] Cannot find account or username/password is invalid!",
+        "data": {}
+        }
                 

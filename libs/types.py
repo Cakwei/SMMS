@@ -1,14 +1,18 @@
-from typing import NotRequired, TypedDict
+from typing import Literal, NotRequired, TypedDict
 
-class TAdmins(TypedDict):
+class TUser(TypedDict):
     userId: int
     username: str
+    name: str
     password: str
     role: str
 
+TRole = Literal["Admin", "Student", "Lecturer", None]
+
 class TSessionData(TypedDict):
     username: str
-    role: str
+    name: str
+    role: TRole
 
 class TReturn(TypedDict):
     success: bool

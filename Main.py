@@ -1,7 +1,7 @@
 from time import sleep
 
 from libs.libs import clearTerminal
-from libs.types import TSessionData
+from libs.types import TRole, TSessionData
 from src.Auth import login, register
 
 # Loopable auth
@@ -16,39 +16,51 @@ from src.Auth import login, register
 
 
 # Variables
-txt = "Welcome to Student Marks Management System"
-border = "*" * (len(txt) + 4)
-programName = f"{border}\n* {txt} *\n{border}"
+role: TRole = None
 
 # Functions
+def getMOTD():   
+    txt = "Welcome to Student Marks Management System"
+    borderLength = len(txt) + 4
+    topBorder = "*" * borderLength
+ 
+    # Dynamically read the current state of 'role'
+    sessionTxt = f" SESSION: {role.upper() if role else None} "
+    bottom_border = sessionTxt.center(borderLength, "*")
+    programName = f"{topBorder}\n* {txt} *\n{bottom_border if role else topBorder}"
+    return programName, topBorder
+
 def main():
     # Start up of the program
     startUpWindow()
 
 def startUpWindow():
+    global role
     while True:
-        # Show program MOTD & login/register options
+  
+        # Show program MOTD & login/register options      p
+        programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
                 1. Register
                 2. Login
                 1000. Close Application
-                {border}\n"""
+                {topBorder}\n"""
         print("\n".join(line.lstrip() for line in motdMsg.splitlines()))
 
         selectedOption = input("\nSelect an option: ")
         
-        match selectedOption:
-            case "1": # Register
+        match selectedOption.lower():
+            case "1" | "register": # Register
                 while True:
                     response = register()
-            case "2": # Login 
+            case "2" | "login" : # Login 
                  while True:
                     print(programName)
                     # Calls login function from src/Auth.py
                     response = login()
                     
                     # Check if sessionData dict is empty
-                    if not response["data"]:
+                    if not response["success"]:
                         # "Clears" terminal before printing MOTD & options
                         clearTerminal()
                         # print("[!] Username/password you have entered is incorrect!")
@@ -56,11 +68,19 @@ def startUpWindow():
                         sleep(1.5)
                         clearTerminal()
                         continue
+                    
+                    if response["success"]:
+                        clearTerminal()
+                        print(response["message"])
+                        sleep(1.5)
+                        clearTerminal()
+                        role = response["data"]["role"]
 
                     # If loggedInWindow function returns False, breaks the loop (Goes back to very first loop of startUpWindow)
-                    if not loggedInWindow(response["data"]):
+                    if not loggedInWindow(response["data"]): 
+                        role = None
                         break
-            case "1000": 
+            case "1000" | "exit" | "close" | "off": # Exits whole program
                 exit()
     
 
@@ -68,13 +88,14 @@ def loggedInWindow(sessionData: TSessionData | dict):
     # Loops options infinitely until user logs out OR shutdown app
     while True: 
     # Show program MOTD & options
+        programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
             1. Feature #1
             2. Feature #2
             3. Feature #3
-            999. Log out as {sessionData['username']}
+            999. Log out as {sessionData['username']} {f"({sessionData["name"]})"}
             1000. Close Application
-            {border}\n"""
+            {topBorder}\n"""
         print("\n".join(line.lstrip() for line in motdMsg.splitlines()))
                 
         selectedOption = input("\nSelect an option: ")
@@ -89,9 +110,8 @@ def loggedInWindow(sessionData: TSessionData | dict):
             case "999":
                 return False
                 break
-            case "1000": # Exits whole program
+            case "1000" | "exit" | "close" | "off": # Exits whole program
                 exit()
-
 
 # The function to start the whole program
 main()
