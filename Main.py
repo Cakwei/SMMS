@@ -38,7 +38,7 @@ def startUpWindow():
     global role
     while True:
   
-        # Show program MOTD & login/register options      p
+        # Show program MOTD & login/register options
         programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
                 1. Register
@@ -53,6 +53,11 @@ def startUpWindow():
             case "1" | "register": # Register
                 while True:
                     response = register()
+
+                    # If successful registration, go back to startUpWindow for users to login
+                    if response["success"]:
+                        break
+
             case "2" | "login" : # Login 
                  while True:
                     print(programName)

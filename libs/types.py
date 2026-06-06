@@ -5,7 +5,7 @@ class TUser(TypedDict):
     username: str
     name: str
     password: str
-    role: str
+    role: TRole
 
 TRole = Literal["Admin", "Student", "Lecturer", None]
 
