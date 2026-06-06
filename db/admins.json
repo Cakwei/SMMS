@@ -1,6 +1,6 @@
 [
   {
-    "userId": "1",
+    "userId": 1,
     "username": "admin1",
     "name": "Admin Lee",
     "password": "123",

@@ -1,4 +1,5 @@
 import json
+from Auth import getStudentCredentials
 from libs.types import TUser 
 
 def clearTerminal():
@@ -38,3 +39,10 @@ def writeToStudentFile(data: list[TUser], newData: TUser) -> bool:
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         return False
+    
+def getResults():
+    # Read student file
+    response = getStudentCredentials()
+
+
+    pass

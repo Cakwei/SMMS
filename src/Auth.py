@@ -140,6 +140,8 @@ def register() -> TReturn:
         "data": {}
     }
 
+
+# Call these only for login purposes
 # For now redundant function, may need to add additional stuff later on
 def getAdminCredentials(username: str, password: str) -> TReturn:
         data: list[TUser] = readAdminFile()

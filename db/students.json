@@ -1,16 +1,26 @@
 [
-  {
-    "userId": "1",
-    "username": "student1",
-    "name": "Bruce Lee",
-    "password": "123",
-    "role": "Student"
-  },
-  {
-    "userId": "2",
-    "username": "student2",
-    "name": "Joe Smith",
-    "password": "123",
-    "role": "Student"
-  }
+    {
+        "userId": 1,
+        "username": "student1",
+        "name": "Bruce Lee",
+        "password": "123",
+        "role": "Student",
+        "inClass": [1, 2]
+    },
+    {
+        "userId": 2,
+        "username": "student2",
+        "name": "Joe Smith",
+        "password": "123",
+        "role": "Student",
+        "inClass": [1, 2]
+    },
+    {
+        "userId": 3,
+        "username": "Cakwei",
+        "name": "Charlee",
+        "password": "123",
+        "role": "Student",
+        "inClass": [1, 2]
+    }
 ]

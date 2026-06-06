@@ -1,6 +1,6 @@
 from time import sleep
 
-from libs.libs import clearTerminal
+from libs.libs import clearTerminal, getResults
 from libs.types import TRole, TSessionData
 from src.Auth import login, register
 
@@ -118,8 +118,8 @@ def studentPage(sessionData: TSessionData | dict):
         selectedOption = input("\nSelect an option: ")
 
         match selectedOption:
-            case "1":
-                print("Feature #1")
+            case "1": # View results
+                response = getResults(sessionData["name"], )
             case "2":
                 print("Feature #2")
             case "3":

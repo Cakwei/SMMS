@@ -1,14 +1,14 @@
 [
   {
-    "userId": "1",
-    "username": "Results1",
-    "password": "123",
-    "role": "Admin"
+    "resultId": 1,
+    "userId": 3,
+    "classId": 2,
+    "score": 100
   },
   {
-    "userId": "2",
-    "username": "Results2",
-    "password": "123",
-    "role": "Admin"
+    "resultId": 2,
+    "userId": 3,
+    "classId": 1,
+    "score": 100
   }
 ]
