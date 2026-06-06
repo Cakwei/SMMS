@@ -1,13 +1,13 @@
 from typing import Literal, TypedDict
 
+TRole = Literal["Admin", "Student", "Lecturer", None]
+
 class TUser(TypedDict):
     userId: int
     username: str
     name: str
     password: str
     role: TRole
-
-TRole = Literal["Admin", "Student", "Lecturer", None]
 
 class TSessionData(TypedDict):
     username: str 

@@ -57,6 +57,9 @@ def startUpWindow():
                     # If successful registration, go back to startUpWindow for users to login
                     if response["success"]:
                         break
+                    elif not response["success"]:
+                        print(response["message"])
+
 
             case "2" | "login" : # Login 
                  while True:
@@ -99,10 +102,62 @@ def loggedInWindow(sessionData: TSessionData | dict):
             adminPage(sessionData)
 
 def studentPage(sessionData: TSessionData | dict):
-    pass
+    # Loops options infinitely until user logs out OR shutdown app
+    while True: 
+    # Show program MOTD & options
+        programName, topBorder = getMOTD()
+        motdMsg = f"""{programName}
+            1. View results
+            2. Export Results
+            3. Feature #3
+            999. Log out as {sessionData['username']} {f"({sessionData["name"]})"}
+            1000. Close Application
+            {topBorder}\n"""
+        print("\n".join(line.lstrip() for line in motdMsg.splitlines()))
+                
+        selectedOption = input("\nSelect an option: ")
+
+        match selectedOption:
+            case "1":
+                print("Feature #1")
+            case "2":
+                print("Feature #2")
+            case "3":
+                print("Feature #3")                
+            case "999":
+                return False
+                break
+            case "1000" | "exit" | "close" | "off": # Exits whole program
+                exit()
 
 def lecturerPage(sessionData: TSessionData | dict):
-    pass
+    # Loops options infinitely until user logs out OR shutdown app
+    while True: 
+    # Show program MOTD & options
+        programName, topBorder = getMOTD()
+        motdMsg = f"""{programName}
+            1. Feature #1
+            2. Feature #2
+            3. Feature #3
+            999. Log out as {sessionData['username']} {f"({sessionData["name"]})"}
+            1000. Close Application
+            {topBorder}\n"""
+        print("\n".join(line.lstrip() for line in motdMsg.splitlines()))
+                
+        selectedOption = input("\nSelect an option: ")
+
+        match selectedOption:
+            case "1":
+                print("Feature #1")
+            case "2":
+                print("Feature #2")
+            case "3":
+                print("Feature #3")                
+            case "999":
+                return False
+                break
+            case "1000" | "exit" | "close" | "off": # Exits whole program
+                exit()
 
 def adminPage(sessionData: TSessionData | dict):
     # Loops options infinitely until user logs out OR shutdown app

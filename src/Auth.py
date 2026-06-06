@@ -110,13 +110,13 @@ def register() -> TReturn:
             "message": "[!] One or more inputs is/are empty",
             "data": {}
         }
-    print("I am here")
+    
     # Opens & reads the user DB, load data as dict after 
     data = readStudentFile()
     
     # Username checking if it already exists
     for d in data:
-        if username.lower() == d["username"]:
+        if username.lower() == d["username"].lower():
             return {
                 "success": False, 
                 "message": '[!] An account with this username already exists',
@@ -124,6 +124,7 @@ def register() -> TReturn:
             } 
     
     isWriteComplete = writeToStudentFile(data, {"userId": len(data) + 1, "username": username, "name": name, "password": password, "role": "Student"})
+
     if isWriteComplete:
         clearTerminal()
         print("[!] Successfully registered account")
