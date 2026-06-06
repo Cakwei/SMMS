@@ -90,6 +90,21 @@ def startUpWindow():
     
 
 def loggedInWindow(sessionData: TSessionData | dict):
+    match sessionData["role"]:
+        case "Admin":
+            adminPage(sessionData)
+        case "Student":
+            studentPage(sessionData)
+        case "Lecturer":
+            adminPage(sessionData)
+
+def studentPage(sessionData: TSessionData | dict):
+    pass
+
+def lecturerPage(sessionData: TSessionData | dict):
+    pass
+
+def adminPage(sessionData: TSessionData | dict):
     # Loops options infinitely until user logs out OR shutdown app
     while True: 
     # Show program MOTD & options

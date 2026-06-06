@@ -1,4 +1,4 @@
-from typing import Literal, NotRequired, TypedDict
+from typing import Literal, TypedDict
 
 class TUser(TypedDict):
     userId: int
@@ -10,7 +10,7 @@ class TUser(TypedDict):
 TRole = Literal["Admin", "Student", "Lecturer", None]
 
 class TSessionData(TypedDict):
-    username: str
+    username: str 
     name: str
     role: TRole
 
@@ -18,4 +18,3 @@ class TReturn(TypedDict):
     success: bool
     message: str
     data: TSessionData | dict
-

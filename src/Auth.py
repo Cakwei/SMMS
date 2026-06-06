@@ -1,4 +1,3 @@
-import json
 import sys
 from pathlib import Path
 from time import sleep
@@ -48,7 +47,7 @@ def login() -> TReturn:
         case "1" | "admin":  
             # Opens the admin DB and load data as dict
             response: TReturn = getAdminCredentials(username, password)
-            print(response["data"]["username"], 'peirgjearpgokfijkgaeornlfnkalgeosrkjlgaern')
+            
             if response["success"]:        
                 return {
                     "success": True,
@@ -134,6 +133,11 @@ def register() -> TReturn:
             "message": "",
             "data": {}
         }
+    return {
+        "success": False,
+        "message": "[!] An error occurred",
+        "data": {}
+    }
 
 # For now redundant function, may need to add additional stuff later on
 def getAdminCredentials(username: str, password: str) -> TReturn:
