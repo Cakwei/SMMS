@@ -1,4 +1,15 @@
+from pathlib import Path
+import sys
 from time import sleep
+
+# ==========================
+# Resolve import issues from another parent folder
+current_dir = Path(__file__).resolve().parent
+root_dir = current_dir.parent
+
+# Add the root directory to Python's search path
+sys.path.append(str(root_dir))
+# ==========================
 
 from libs.libs import clearTerminal, getResults
 from libs.types import TRole, TSessionData
@@ -88,6 +99,7 @@ def startUpWindow():
                     if not loggedInWindow(response["data"]): 
                         role = None
                         break
+                    
             case "1000" | "exit" | "close" | "off": # Exits whole program
                 exit()
     
@@ -96,20 +108,21 @@ def loggedInWindow(sessionData: TSessionData | dict):
     match sessionData["role"]:
         case "Admin":
             adminPage(sessionData)
+
         case "Student":
             studentPage(sessionData)
+        
         case "Lecturer":
             adminPage(sessionData)
 
 def studentPage(sessionData: TSessionData | dict):
-    # Loops options infinitely until user logs out OR shutdown app
-    while True: 
+     while True: 
     # Show program MOTD & options
         programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
-            1. View results
-            2. Export Results
-            3. Feature #3
+            1. Student Feature #1
+            2. Student Feature #2
+            3. Student Feature #3
             999. Log out as {sessionData['username']} {f"({sessionData["name"]})"}
             1000. Close Application
             {topBorder}\n"""
@@ -119,7 +132,9 @@ def studentPage(sessionData: TSessionData | dict):
 
         match selectedOption:
             case "1": # View results
-                response = getResults(sessionData["name"], )
+                response = getResults()
+            case "1":
+                print("Feature #1")
             case "2":
                 print("Feature #2")
             case "3":
@@ -136,9 +151,9 @@ def lecturerPage(sessionData: TSessionData | dict):
     # Show program MOTD & options
         programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
-            1. Feature #1
-            2. Feature #2
-            3. Feature #3
+            1. Lecturer Feature #1
+            2. Lecturer Feature #2
+            3. Lecturer Feature #3
             999. Log out as {sessionData['username']} {f"({sessionData["name"]})"}
             1000. Close Application
             {topBorder}\n"""
@@ -165,9 +180,9 @@ def adminPage(sessionData: TSessionData | dict):
     # Show program MOTD & options
         programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
-            1. Feature #1
-            2. Feature #2
-            3. Feature #3
+            1. Admin Feature #1
+            2. Admin Feature #2
+            3. Admin Feature #3
             999. Log out as {sessionData['username']} {f"({sessionData["name"]})"}
             1000. Close Application
             {topBorder}\n"""

@@ -1,21 +1,11 @@
-import sys
-from pathlib import Path
 from time import sleep
-
-# ==========================
-# Resolve import issues from another parent folder
-current_dir = Path(__file__).resolve().parent
-root_dir = current_dir.parent
-
-# Add the root directory to Python's search path
-sys.path.append(str(root_dir))
-
 from libs.libs import clearTerminal, readAdminFile, readLecturerFile, readStudentFile, writeToStudentFile
 from libs.types import TReturn, TUser
 # ==========================
 
 # Auth Functions
 def login() -> TReturn:
+    role: str | None = None
     # Authentication for all users
     msg = """
     [LOGIN] Select an option from below:
@@ -27,7 +17,20 @@ def login() -> TReturn:
           
     username = input("[LOGIN] Enter your account name: ")
     password = input("[LOGIN] Enter your password: ")
-    role = input("\n".join(line.lstrip() for line in msg.splitlines()))
+
+
+    # Loops until one option is selected
+    while True:
+        role = input("\n".join(line.lstrip() for line in msg.splitlines()))
+        match role.lower():
+            case "1" | "2" | "3" | "Admin" | "Student" | "Lecturer":
+                break
+            case _:
+                clearTerminal()
+                print("[!] Please select from the options given")
+                sleep(1.5)
+                clearTerminal()
+                continue
 
     # Check if both input is empty
     if not username or not password or not role:

@@ -1,5 +1,4 @@
 import json
-from Auth import getStudentCredentials
 from libs.types import TUser 
 
 def clearTerminal():
@@ -42,7 +41,7 @@ def writeToStudentFile(data: list[TUser], newData: TUser) -> bool:
     
 def getResults():
     # Read student file
-    response = getStudentCredentials()
+    # response = getStudentCredentials()
 
 
     pass
