@@ -58,7 +58,8 @@ def login() -> TReturn:
                     "data": {
                         "username": response["data"]["username"], 
                         "name": response["data"]["name"],
-                        "role": response["data"]["role"]
+                        "role": response["data"]["role"],
+                        "id": response["data"]["id"]
                     }
                 }
             
@@ -73,8 +74,8 @@ def login() -> TReturn:
                     "data": {
                         "username": response["data"]["username"],     
                         "name": response["data"]["name"],
-                        "role": response["data"]["role"]
-                  
+                        "role": response["data"]["role"],
+                        "id": response["data"]["id"]
                     }
                 }
             
@@ -90,10 +91,10 @@ def login() -> TReturn:
                     "data": {
                         "username": response["data"]["username"], 
                         "name": response["data"]["name"],
-                        "role": response["data"]["role"]
+                        "role": response["data"]["role"],
+                        "id": response["data"]["id"]
                     }
                 }
-            
 
     return {
         "success": False,
@@ -126,7 +127,7 @@ def register() -> TReturn:
                 "data": {}
             } 
     
-    isWriteComplete = writeToStudentFile(data, {"userId": len(data) + 1, "username": username, "name": name, "password": password, "role": "Student"})
+    isWriteComplete = writeToStudentFile(data, {"studentId": len(data) + 1, "username": username, "name": name, "password": password, "role": "Student"})
 
     if isWriteComplete:
         clearTerminal()
@@ -144,7 +145,7 @@ def register() -> TReturn:
     }
 
 
-# Call these only for login purposes
+# Call these only for LOGIN purposes
 # For now redundant function, may need to add additional stuff later on
 def getAdminCredentials(username: str, password: str) -> TReturn:
         data: list[TUser] = readAdminFile()
@@ -159,7 +160,8 @@ def getAdminCredentials(username: str, password: str) -> TReturn:
                         "data": {
                             "username": data[i]["username"],
                             "name": data[i]["name"], 
-                            "role": data[i]["role"]
+                            "role": data[i]["role"],
+                            "id": data[i].get("adminId")
                         }
                     }
         return {
@@ -178,11 +180,12 @@ def getStudentCredentials(username: str, password: str) -> TReturn:
             if currentDict["username"].lower() == username.lower() and currentDict["password"] == password:
                 return {
                     "success": True, 
-                    "message": 'Logged in',
+                    "message": '[!] Successfully logged in',
                     "data": {
                         "username": data[i]["username"],
                         "name": data[i]["name"], 
-                        "role": data[i]["role"]
+                        "role": data[i]["role"],
+                        "id": data[i].get("studentId") 
                     }
                 }
     return {
@@ -204,7 +207,8 @@ def getLecturerCredentials(username: str, password: str) -> TReturn:
                         "data": {
                             "username": data[i]["username"],
                             "name": data[i]["name"], 
-                            "role": data[i]["role"]
+                            "role": data[i]["role"],
+                            "id": data[i].get("lecturerId")
                         }
                     }
         return {

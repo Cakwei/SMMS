@@ -1,13 +1,13 @@
 [
   {
     "resultId": 1,
-    "userId": 3,
+    "studentId": 3,
     "classId": 2,
     "score": 100
   },
   {
     "resultId": 2,
-    "userId": 3,
+    "studentId": 3,
     "classId": 1,
     "score": 100
   }

@@ -11,7 +11,7 @@ root_dir = current_dir.parent
 sys.path.append(str(root_dir))
 # ==========================
 
-from libs.libs import clearTerminal, getResults
+from libs.libs import clearTerminal, getOwnResults
 from libs.types import TRole, TSessionData
 from src.Auth import login, register
 
@@ -117,10 +117,11 @@ def loggedInWindow(sessionData: TSessionData | dict):
 
 def studentPage(sessionData: TSessionData | dict):
      while True: 
+        clearTerminal()
     # Show program MOTD & options
         programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
-            1. Student Feature #1
+            1. Fetch my results
             2. Student Feature #2
             3. Student Feature #3
             999. Log out as {sessionData['username']} {f"({sessionData["name"]})"}
@@ -132,7 +133,7 @@ def studentPage(sessionData: TSessionData | dict):
 
         match selectedOption:
             case "1": # View results
-                response = getResults()
+                response = getOwnResults(sessionData)
             case "1":
                 print("Feature #1")
             case "2":
@@ -148,6 +149,7 @@ def studentPage(sessionData: TSessionData | dict):
 def lecturerPage(sessionData: TSessionData | dict):
     # Loops options infinitely until user logs out OR shutdown app
     while True: 
+        clearTerminal()
     # Show program MOTD & options
         programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
@@ -177,6 +179,7 @@ def lecturerPage(sessionData: TSessionData | dict):
 def adminPage(sessionData: TSessionData | dict):
     # Loops options infinitely until user logs out OR shutdown app
     while True: 
+        clearTerminal()
     # Show program MOTD & options
         programName, topBorder = getMOTD()
         motdMsg = f"""{programName}
