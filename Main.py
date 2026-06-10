@@ -11,7 +11,7 @@ root_dir = current_dir.parent
 sys.path.append(str(root_dir))
 # ==========================
 
-from libs.libs import clearTerminal, getOwnResults
+from libs.libs import getMOTD, getOwnResults, clearTerminal
 from libs.types import TRole, TSessionData
 from src.Auth import login, register
 
@@ -30,16 +30,6 @@ from src.Auth import login, register
 role: TRole = None
 
 # Functions
-def getMOTD():   
-    txt = "Welcome to Student Marks Management System"
-    borderLength = len(txt) + 4
-    topBorder = "*" * borderLength
- 
-    # Dynamically read the current state of 'role'
-    sessionTxt = f" SESSION: {role.upper() if role else None} "
-    bottom_border = sessionTxt.center(borderLength, "*")
-    programName = f"{topBorder}\n* {txt} *\n{bottom_border if role else topBorder}"
-    return programName, topBorder
 
 def main():
     # Start up of the program
@@ -50,7 +40,7 @@ def startUpWindow():
     while True:
   
         # Show program MOTD & login/register options
-        programName, topBorder = getMOTD()
+        programName, topBorder = getMOTD({})
         motdMsg = f"""{programName}
                 1. Register
                 2. Login
@@ -119,7 +109,7 @@ def studentPage(sessionData: TSessionData | dict):
      while True: 
         clearTerminal()
     # Show program MOTD & options
-        programName, topBorder = getMOTD()
+        programName, topBorder = getMOTD(sessionData)
         motdMsg = f"""{programName}
             1. Fetch my results
             2. Student Feature #2
@@ -142,7 +132,6 @@ def studentPage(sessionData: TSessionData | dict):
                 print("Feature #3")                
             case "999":
                 return False
-                break
             case "1000" | "exit" | "close" | "off": # Exits whole program
                 exit()
 
@@ -151,7 +140,7 @@ def lecturerPage(sessionData: TSessionData | dict):
     while True: 
         clearTerminal()
     # Show program MOTD & options
-        programName, topBorder = getMOTD()
+        programName, topBorder = getMOTD(sessionData)
         motdMsg = f"""{programName}
             1. Lecturer Feature #1
             2. Lecturer Feature #2
@@ -181,7 +170,7 @@ def adminPage(sessionData: TSessionData | dict):
     while True: 
         clearTerminal()
     # Show program MOTD & options
-        programName, topBorder = getMOTD()
+        programName, topBorder = getMOTD(sessionData)
         motdMsg = f"""{programName}
             1. Admin Feature #1
             2. Admin Feature #2

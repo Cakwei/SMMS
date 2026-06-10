@@ -10,5 +10,11 @@
     "studentId": 3,
     "classId": 1,
     "score": 100
+  },
+  {
+    "resultId": 2,
+    "studentId": 2,
+    "classId": 1,
+    "score": 50
   }
 ]

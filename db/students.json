@@ -4,23 +4,20 @@
     "username": "student1",
     "name": "Bruce Lee",
     "password": "123",
-    "role": "Student",
-    "inClass": [1, 2]
+    "role": "Student"
   },
   {
     "studentId": 2,
     "username": "student2",
     "name": "Joe Smith",
     "password": "123",
-    "role": "Student",
-    "inClass": [1, 2]
+    "role": "Student"
   },
   {
     "studentId": 3,
     "username": "Cakwei",
     "name": "Charlee",
     "password": "123",
-    "role": "Student",
-    "inClass": [1, 2]
+    "role": "Student"
   }
 ]

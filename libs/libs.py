@@ -1,6 +1,17 @@
 import json
-from time import sleep
 from libs.types import TResults, TReturn, TSessionData, TUser 
+
+def getMOTD(sessionData: TSessionData | dict):   
+    role = sessionData["role"] if len(sessionData) >= 1 else None
+    txt = "Welcome to Student Marks Management System"
+    borderLength = len(txt) + 4
+    topBorder = "*" * borderLength
+ 
+    # Dynamically read the current state of 'role'
+    sessionTxt = f" SESSION: {role.upper() if role else None} "
+    bottom_border = sessionTxt.center(borderLength, "*")
+    programName = f"{topBorder}\n* {txt} *\n{bottom_border if role else topBorder}"
+    return programName, topBorder
 
 def clearTerminal():
     print("\033[H\033[J", end="")
@@ -28,8 +39,25 @@ def readAdminFile() -> list[TUser]:
 # Param :-
 # Username = Find results from that username
 def getOwnResults(sessionData: TSessionData | dict) -> TReturn:
+  
     filteredData: list[TResults] = []
     data: list[TResults] = readResultsFile()
+
+    while True:
+        programName, topBorder = getMOTD(sessionData)
+        motdMsg = f"""{programName}
+            1. Fetch specific semester
+            2. Fetch all semester
+            {topBorder}\n"""
+        
+        print("\n".join(line.lstrip() for line in motdMsg.splitlines()))
+        option = input("")
+
+        match option.lower():
+            case "1" | "fetch all" | "all":
+                break
+            case "2" | "fetch specific" | "specific":
+                break
 
     # Check if results file is empty or not
     if len(data) <= 0:
@@ -51,7 +79,7 @@ def getOwnResults(sessionData: TSessionData | dict) -> TReturn:
         while True:
             option = input("Do you want go back? (Yes/No): ")
             match option.lower():
-                case "yes":
+                case "yes" | "y":
                     break
                 case _:
                     continue

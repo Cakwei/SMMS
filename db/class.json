@@ -1,9 +1,22 @@
 [
   {
     "classId": 1,
-    "className": "Chemistry"
+    "className": "Chemistry",
+    "semester": 1
   },
-  {     
+  {
     "classId": 2,
-    "className": "Biology"
-  }]
+    "className": "Biology",
+    "semester": 1
+  },
+  {
+    "classId": 3,
+    "className": "Chemistry 2",
+    "semester": 2
+  },
+  {
+    "classId": 4,
+    "className": "Biology 2",
+    "semester": 2
+  }
+]
