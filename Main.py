@@ -11,7 +11,7 @@ root_dir = current_dir.parent
 sys.path.append(str(root_dir))
 # ==========================
 
-from libs.libs import getMOTD, getOwnResults, clearTerminal
+from libs.libs import getMOTD, getOwnResults, clearTerminal, printResult
 from libs.types import TRole, TSessionData
 from src.Auth import login, register
 
@@ -124,6 +124,18 @@ def studentPage(sessionData: TSessionData | dict):
         match selectedOption:
             case "1": # View results
                 response = getOwnResults(sessionData)
+
+                if response["success"]:
+                    clearTerminal()
+                    printResult(response["data"].get("resultsData") or [])
+                    while True:
+                        option = input("Do you want go back? (Yes): ")
+                        match option.lower():
+                            case "yes" | "y":
+                                break
+                            case _:
+                                continue
+
             case "1":
                 print("Feature #1")
             case "2":
@@ -155,13 +167,16 @@ def lecturerPage(sessionData: TSessionData | dict):
         match selectedOption:
             case "1":
                 print("Feature #1")
+
             case "2":
                 print("Feature #2")
+
             case "3":
-                print("Feature #3")                
+                print("Feature #3")   
+
             case "999":
                 return False
-                break
+
             case "1000" | "exit" | "close" | "off": # Exits whole program
                 exit()
 

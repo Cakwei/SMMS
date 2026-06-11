@@ -12,9 +12,15 @@
     "score": 100
   },
   {
-    "resultId": 2,
+    "resultId": 3,
     "studentId": 2,
     "classId": 1,
     "score": 50
+  },  
+  {
+    "resultId": 4,
+    "studentId": 3,
+    "classId": 4,
+    "score": 21
   }
 ]

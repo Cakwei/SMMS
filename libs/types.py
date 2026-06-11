@@ -1,4 +1,4 @@
-from typing import Literal, NotRequired, TypedDict, Optional
+from typing import Any, Literal, NotRequired, TypedDict, Optional
 
 TRole = Literal["Admin", "Student", "Lecturer", None]
 
@@ -20,10 +20,17 @@ class TSessionData(TypedDict):
 class TReturn(TypedDict):
     success: bool
     message: str
-    data: TSessionData | dict
+    data: TSessionData | dict[str, Any]
 
 class TResults(TypedDict):
     resultId: int
-    studentId: int
+    studentId: NotRequired[int | None]
     classId: int
     score: int
+    className: NotRequired[str | None]
+    semester: NotRequired[int | None]
+
+class TClasses(TypedDict):
+    classId: int
+    className: str
+    semester: int
